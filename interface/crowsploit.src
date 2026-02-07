@@ -283,10 +283,12 @@ else
         kernel.settings.interface = {}
     end if
 
+    if not kernel.settings.interface.hasIndex("streamer_mode") then kernel.settings.interface.streamer_mode = "false"
     if params.indexOf("-sm") != null then 
         kernel.settings.interface.streamer_mode = "true"
     end if
 
+    if not kernel.settings.interface.hasIndex("use_built_in_history") then kernel.settings.interface.use_built_in_history = "false"
     if params.indexOf("-b") != null then
         kernel.settings.interface.use_built_in_history = "true"
     end if
@@ -317,13 +319,16 @@ else
     show_motd(kernel)
 
     if kernel.settings.update.check == "true" then
+        kernel.print("$T2; Updates turned off by AmsTaFF")
+        kernel.settings.update.check = "false"
+    end if
+
+    if kernel.settings.update.check == "true" then
         res = kernel.check_update(interface_version)
         if is_error(res) then print(res.trace)
         print("")
         kernel.print("$T2;!! You can turn off update checker in the .crowrc file !!")
     end if
-    print(" ")
-    kernel.print("$S;Join the discord: $T2;discord.gg/qW5Uv2SAmq $S;for help and more info!")
     print(" ")
     
     if kernel.session.user != "root" then

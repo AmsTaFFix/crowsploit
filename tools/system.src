@@ -2290,9 +2290,14 @@ $P;passgen 0 10 $T;> 7781945292"
 // update
 
 update_func = function(a)
+    if kernel.settings.update.check == "true" then
+        kernel.print("$T2; Updates turned off by AmsTaFF")
+        kernel.settings.update.check = "false"
+    end if
     r = a.kernel.check_update()
     if is_error(r) then return r.stack("system.update")
 end function
+
 update_cmd = mytool.command("update", [], @update_func)
 update_cmd.short_description = "Check if there are available updates"
 update_cmd.long_description  = "Check if there are available updates"

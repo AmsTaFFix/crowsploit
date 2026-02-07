@@ -665,6 +665,11 @@ end function
 
 
 Kernel.check_update = function(interface_version)
+    if true then
+        kernel.print("$T2; Updates turned off by AmsTaFF")
+        return
+    end if
+
     ver_string = []
     for x in self.tools.values
         ver_string.push(x.name + "@" + x.version)
